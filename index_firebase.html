@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>Ruicheng Ao 敖睿成</title>
+<style>
+  #counter-display {
+    margin: 15px 0;
+    font-size: 16px;
+  }
+  
+  #counter-display span {
+    font-weight: bold;
+    color: #4CAF50;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #45a049;
+  }
+  
+  .button:active {
+    background-color: #3e8e41;
+  }
+  
+  .stats-toggle {
+    cursor: pointer;
+    color: #4CAF50;
+    text-decoration: underline;
+    margin-top: 10px;
+    display: inline-block;
+  }
+  
+  #history-stats {
+    margin-top: 15px;
+    display: none;
+  }
+  
+  #history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  #history-table th, #history-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  #history-table th {
+    background-color: #f2f2f2;
+  }
+  
+  #history-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+</style>
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Menu</div>
+<div class="menu-item"><a href="index.html" class="current">Home</a></div>
+<div class="menu-item"><a href="papers.html">Papers</a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Ruicheng Ao 敖睿成</h1>
+</div>
+<table class="imgtable">
+<tr>
+<td>
+<img src="ME.jpg" alt="me" align="left" width="400">
+<td align="left">
+<p>Ruicheng Ao<br/>
+Email: aorc [at] mit (dot) edu <br/>
+<a href="https://scholar.google.com/citations?user=6MWsop0AAAAJ&hl=en">Google Scholar</a><br/>
+<a href="CV+.pdf">CV</a><br/>
+<br/>
+I'm too fruitless. When you see this message I'm likely to being moyuing. 
+</p>
+</td>
+</tr>
+</table>
+<h2>About Me</h2>
+<p>I'm a second year Ph.D. candidate in the Institute for
+    Data, Systems, and Society (IDSS) of MIT. I am fortunate to be advised by Prof. <a href="https://dsl.mit.edu/">David Simchi-Levi</a>. My current research focuses on online decision making, encompassing online resource allocation problems and experimental design. I'm interested in exploring data-driven theoretical and algorithmic frameworks with practical applications in various fields, including revenue management, service systems, and sequential hypothesis testing. Before joining MIT, I was advised by Prof. <a href="http://faculty.bicmr.pku.edu.cn/~wenzw/index.html">Zaiwen Wen</a>, Prof.  <a href="https://users.ece.cmu.edu/~yuejiec/">Yuejie Chi</a> and Prof. <a href="http://www.columbia.edu/~jd2736/">Jing Dong</a>. I received my bachelor's degree from School of Mathematical Sciences, Peking University in July 2023. </p>
+<p>
+  Spring 2025, I'm working as research assistant (RA) in Prof. <a href="https://mitsloan.mit.edu/faculty/directory/thomas-magnanti">Thomas Magnanti</a>'s group for industry project concerning EV charger scheduling.
+</p>
+
+</div>
+
+<div class="infoblock">
+  <div class="blockcontent">
+    <p>If you saw this message, please push me. Also I love using emoji during chatting, you can add my WeChat to push emoji on me.</p>
+    <div id="counter-display">
+      <p><span id="total-clicks">0</span> people have pushed 敖 (Ao) in total.</p>
+      <p><span id="today-clicks">0</span> people have pushed 敖 (Ao) today.</p>
+      <p><span id="total-visitors">0</span> total visitors have viewed this page.</p>
+      <p><span id="today-visitors">0</span> visitors today.</p>
+    </div>
+    <button id="push-button" type="button" class="button">Push 敖 (Ao)</button>
+    <div>
+      <a class="stats-toggle" id="toggle-stats">Show historical statistics</a>
+      <div id="history-stats">
+        <h4>Visitor Statistics (Last 7 Days)</h4>
+        <table id="history-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Visitors</th>
+              <th>Pushes</th>
+            </tr>
+          </thead>
+          <tbody id="history-body">
+            <!-- 历史数据将通过 JavaScript 填充 -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+<!-- Counter Script -->
+<script>
+// Firebase 配置
+// Firebase 配置
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCXqpgbEGkkw6IajepMZ5wlf46i652FPlI",
+  authDomain: "homepage-93e54.firebaseapp.com",
+  databaseURL: "https://homepage-93e54-default-rtdb.firebaseio.com",
+  projectId: "homepage-93e54",
+  storageBucket: "homepage-93e54.firebasestorage.app",
+  messagingSenderId: "146348024109",
+  appId: "1:146348024109:web:c2333a65de5af6e28bb3a4",
+  measurementId: "G-FSJXF78Z4H"
+};
+
+analytics = firebase.getAnalytics(app);
+
+// 初始化 Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// After firebase.initializeApp()
+const testRef = database.ref('connectionTest');
+testRef.set({
+  timestamp: new Date().getTime()
+}).then(() => {
+  console.log("Firebase connection successful");
+}).catch(error => {
+  console.error("Firebase connection failed:", error);
+});
+
+// 生成唯一的访客ID（使用设备和浏览器信息的组合）
+function generateVisitorId() {
+  // 组合用户代理、屏幕尺寸和时间戳生成相对唯一的ID
+  const userAgent = navigator.userAgent;
+  const screenSize = `${screen.width}x${screen.height}`;
+  const timeComponent = new Date().getTime();
+  const randomComponent = Math.random().toString(36).substring(2, 15);
+  
+  // 生成哈希值（简单实现）
+  let hash = 0;
+  const str = userAgent + screenSize + timeComponent + randomComponent;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  
+  return hash.toString(16); // 转换为十六进制字符串
+}
+
+// 获取客户端日期和时间
+function getToday() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+}
+
+// 获取过去7天的日期数组
+function getLast7Days() {
+  const dates = [];
+  for (let i = 0; i < 7; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    dates.push(formattedDate);
+  }
+  return dates;
+}
+
+// 更新计数显示
+function updateCounterDisplay(totalClicks, todayClicks, totalVisitors, todayVisitors) {
+  document.getElementById('total-clicks').textContent = totalClicks;
+  document.getElementById('today-clicks').textContent = todayClicks;
+  document.getElementById('total-visitors').textContent = totalVisitors;
+  document.getElementById('today-visitors').textContent = todayVisitors;
+}
+
+// 更新历史统计数据（最近7天）
+function updateHistoryStats() {
+  const dates = getLast7Days();
+  const historyBody = document.getElementById('history-body');
+  historyBody.innerHTML = '';
+  
+  // 先添加一行显示全部历史总数
+  database.ref('counter/totals/visitors').once('value')
+    .then(totalVisitorsSnapshot => {
+      database.ref('counter/totals/clicks').once('value')
+        .then(totalClicksSnapshot => {
+          const totalVisitors = totalVisitorsSnapshot.exists() ? totalVisitorsSnapshot.val() : 0;
+          const totalClicks = totalClicksSnapshot.exists() ? totalClicksSnapshot.val() : 0;
+          
+          const totalRow = document.createElement('tr');
+          totalRow.style.fontWeight = 'bold';
+          
+          const labelCell = document.createElement('td');
+          labelCell.textContent = '全部历史';
+          totalRow.appendChild(labelCell);
+          
+          const visitorsCell = document.createElement('td');
+          visitorsCell.textContent = totalVisitors;
+          totalRow.appendChild(visitorsCell);
+          
+          const clicksCell = document.createElement('td');
+          clicksCell.textContent = totalClicks;
+          totalRow.appendChild(clicksCell);
+          
+          historyBody.appendChild(totalRow);
+          
+          // 添加分隔行
+          const separatorRow = document.createElement('tr');
+          const separatorCell = document.createElement('td');
+          separatorCell.colSpan = 3;
+          separatorCell.style.borderBottom = '2px solid #4CAF50';
+          separatorCell.style.padding = '4px';
+          separatorRow.appendChild(separatorCell);
+          historyBody.appendChild(separatorRow);
+          
+          // 然后继续添加最近7天的详细数据
+          const promises = dates.map(date => {
+            return Promise.all([
+              database.ref(`counter/daily/visitors/${date}`).once('value'),
+              database.ref(`counter/daily/clicks/${date}`).once('value')
+            ]).then(([visitorsSnapshot, clicksSnapshot]) => {
+              const visitors = visitorsSnapshot.exists() ? visitorsSnapshot.val() : 0;
+              const clicks = clicksSnapshot.exists() ? clicksSnapshot.val() : 0;
+              
+              // 格式化显示的日期
+              const [year, month, day] = date.split('-');
+              const displayDate = `${month}/${day}`;
+              
+              const row = document.createElement('tr');
+              
+              const dateCell = document.createElement('td');
+              dateCell.textContent = displayDate;
+              row.appendChild(dateCell);
+              
+              const visitorsCell = document.createElement('td');
+              visitorsCell.textContent = visitors;
+              row.appendChild(visitorsCell);
+              
+              const clicksCell = document.createElement('td');
+              clicksCell.textContent = clicks;
+              row.appendChild(clicksCell);
+              
+              return row;
+            });
+          });
+          
+          Promise.all(promises).then(rows => {
+            rows.forEach(row => historyBody.appendChild(row));
+          });
+        });
+    });
+}
+
+// 记录访客
+function recordVisitor() {
+  function recordVisitor() {
+  const today = getToday();
+  
+  // Simplified visitor tracking - just count page loads for now
+  database.ref(`counter/daily/visitors/${today}`).transaction(currentCount => {
+    return (currentCount || 0) + 1;
+  });
+  
+  database.ref('counter/totals/visitors').transaction(currentCount => {
+    return (currentCount || 0) + 1;
+  });
+  
+  getAndDisplayCounts();
+}
+
+// 获取并显示所有计数
+function getAndDisplayCounts() {
+  const today = getToday();
+  
+  Promise.all([
+    database.ref('counter/totals/clicks').once('value'),
+    database.ref(`counter/daily/clicks/${today}`).once('value'),
+    database.ref('counter/totals/visitors').once('value'),
+    database.ref(`counter/daily/visitors/${today}`).once('value')
+  ]).then(([totalClicksSnapshot, todayClicksSnapshot, totalVisitorsSnapshot, todayVisitorsSnapshot]) => {
+    const totalClicks = totalClicksSnapshot.exists() ? totalClicksSnapshot.val() : 0;
+    const todayClicks = todayClicksSnapshot.exists() ? todayClicksSnapshot.val() : 0;
+    const totalVisitors = totalVisitorsSnapshot.exists() ? totalVisitorsSnapshot.val() : 0;
+    const todayVisitors = todayVisitorsSnapshot.exists() ? todayVisitorsSnapshot.val() : 0;
+    
+    updateCounterDisplay(totalClicks, todayClicks, totalVisitors, todayVisitors);
+  });
+}
+
+// 增加点击计数
+function incrementCounter() {
+  const today = getToday();
+  const clickTimestamp = new Date().getTime();
+  const visitorId = generateVisitorId();
+
+  // First ensure visitor is recorded
+  database.ref(`counter/visitors/${today}/${visitorId}`).set(clickTimestamp)
+    .then(() => {
+      // Update visitor counts
+      const updates = {};
+      updates[`counter/daily/visitors/${today}`] = firebase.database.ServerValue.increment(1);
+      updates['counter/totals/visitors'] = firebase.database.ServerValue.increment(1);
+      
+      // Update click counts
+      updates['counter/totals/clicks'] = firebase.database.ServerValue.increment(1);
+      updates[`counter/daily/clicks/${today}`] = firebase.database.ServerValue.increment(1);
+      
+      // Record click details
+      updates[`counter/clickDetails/${database.ref('counter/clickDetails').push().key}`] = {
+        timestamp: clickTimestamp,
+        date: today,
+        page: window.location.pathname,
+        visitorId: visitorId
+      };
+      
+      return database.ref().update(updates);
+    })
+    .then(() => {
+      getAndDisplayCounts();
+      // Button animation code...
+    })
+    .catch(error => {
+      console.error("Error updating counters:", error);
+    });
+}
+
+// 切换历史统计的显示/隐藏
+function toggleHistoryStats() {
+  const historyStats = document.getElementById('history-stats');
+  const toggleButton = document.getElementById('toggle-stats');
+  
+  if (historyStats.style.display === 'none' || historyStats.style.display === '') {
+    historyStats.style.display = 'block';
+    toggleButton.textContent = 'Hide historical statistics';
+    updateHistoryStats();
+  } else {
+    historyStats.style.display = 'none';
+    toggleButton.textContent = 'Show historical statistics';
+  }
+}
+
+// 当页面加载完成时初始化
+document.addEventListener('DOMContentLoaded', function() {
+  // 记录访客
+  recordVisitor();
+  
+  // 获取并显示计数
+  getAndDisplayCounts();
+  
+  // 为按钮添加点击事件
+  const pushButton = document.getElementById('push-button');
+  if (pushButton) {
+    pushButton.addEventListener('click', incrementCounter);
+  }
+  
+  // 为历史统计切换添加点击事件
+  const toggleStats = document.getElementById('toggle-stats');
+  if (toggleStats) {
+    toggleStats.addEventListener('click', toggleHistoryStats);
+  }
+});
+
+console.log("Firebase initialized:", firebase.app());
+database.ref('counter/totals/visitors').once('value').then(snapshot => {
+  console.log("Total visitors data:", snapshot.val());
+}).catch(error => {
+  console.error("Error fetching total visitors:", error);
+});
